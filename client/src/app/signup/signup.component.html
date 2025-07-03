@@ -1,0 +1,59 @@
+<h2>Signup</h2>
+
+<form (ngSubmit)="onSignup()" #signupForm="ngForm">
+  <!-- Email -->
+  <label>Email:</label>
+  <input
+    type="email"
+    name="email"
+    [(ngModel)]="email"
+    required
+    email
+    #emailInput="ngModel"
+  />
+  <div *ngIf="emailInput.errors?.required">Email is required.</div>
+  <div *ngIf="emailInput.errors?.email">Please enter a valid email.</div>
+
+  <!-- Password -->
+  <label>Password:</label>
+  <input
+    type="password"
+    name="password"
+    [(ngModel)]="password"
+    required
+    #passwordInput="ngModel"
+  />
+  <div *ngIf="passwordInput.invalid && passwordInput.touched" style="color: red;">
+    Password is required.
+  </div>
+
+  <!-- Confirm Password -->
+  <label>Confirm Password:</label>
+  <input
+    type="password"
+    name="confirmPassword"
+    [(ngModel)]="confirmPassword"
+    required
+    #confirmInput="ngModel"
+  />
+  <div *ngIf="confirmPassword && password !== confirmPassword" style="color: red;">
+    Passwords do not match
+  </div>
+
+  <!-- Submit Button -->
+  <button
+    type="submit"
+    [disabled]="
+      !signupForm.form.valid || password !== confirmPassword
+    "
+  >
+    Signup
+  </button>
+
+  <!-- Error message from component -->
+  <div *ngIf="errorMessage" style="color: red;">
+    {{ errorMessage }}
+  </div>
+
+  <p>Already have an account? <a routerLink="/login">Login</a></p>
+</form>

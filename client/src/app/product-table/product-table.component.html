@@ -1,0 +1,30 @@
+<div style="max-width: 900px; margin: 50px auto; padding: 2rem; background-color: #f9f9f9; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+  <table>
+    <thead>
+      <tr>
+        <th>SKU</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Images</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.sku }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.price | currency }}</td>
+        <td>
+          <ng-container *ngIf="product.images && product.images.length">
+            <img *ngFor="let img of product.images" [src]="'http://localhost:3000' + img" alt="Product Image" style="width: 50px; height: 50px; object-fit: cover; margin-right: 5px; border-radius: 4px; border: 1px solid #ccc;" />
+          </ng-container>
+        </td>
+        <td>
+          <button (click)="editProduct(product)">Edit</button>
+          <button (click)="deleteProduct(product.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button (click)="addProduct()" style="margin-top: 1.5rem; width: 200px; display: block; margin-left: auto; margin-right: auto;">Add Product</button>
+</div>

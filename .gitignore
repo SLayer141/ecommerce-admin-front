@@ -1,0 +1,27 @@
+# Node modules (both frontend and backend)
+/Client/node_modules/
+/Server/node_modules/
+
+# Environment files
+/Client/.env
+/Server/.env
+.env
+
+# Build and distribution folders
+/Client/build/
+/Client/dist/
+/Server/dist/
+/Server/uploads/
+
+# System files
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE / editor folders
+.vscode/
+.idea/
