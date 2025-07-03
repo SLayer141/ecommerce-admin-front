@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-signup',
@@ -26,7 +27,7 @@ export class SignupComponent {
       password: this.password
     };
 
-     this.http.post('http://localhost:3000/api/signup', userData).subscribe(
+     this.http.post(environment.apiUrl + 'api/signup', userData).subscribe(
   (res: any) => {
     alert('Signup successful!');
     this.router.navigate(['/dashboard']);

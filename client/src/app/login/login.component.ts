@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent {
       password: this.password
     };
 
-    this.http.post('http://localhost:3000/api/login', userData).subscribe(
+    this.http.post(environment.apiUrl + 'api/login', userData).subscribe(
   (res: any) => {
     alert('Login successful!');
     this.router.navigate(['/product-table']);

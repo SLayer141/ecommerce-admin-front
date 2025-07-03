@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 interface Product {
   id: number;
@@ -41,7 +42,7 @@ export class ProductTableComponent implements OnInit {
   }
 
   deleteProduct(id: number): void {
-    this.http.delete(`http://localhost:3000/api/products/${id}`)
+    this.http.delete(environment.apiUrl + 'api/products/' + id)
       .subscribe({
         next: () => {
           this.products = this.products.filter(p => p.id !== id);
