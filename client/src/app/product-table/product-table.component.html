@@ -16,7 +16,7 @@
         <td>{{ product.price | currency }}</td>
         <td>
           <ng-container *ngIf="product.images && product.images.length">
-            <img *ngFor="let img of product.images" [src]="(img.startsWith('http') ? img : environment.apiUrl.replace(/\/$/, '') + img)" alt="Product Image" style="width: 50px; height: 50px; object-fit: cover; margin-right: 5px; border-radius: 4px; border: 1px solid #ccc;" />
+            <img *ngFor="let img of product.images" [src]="getImageUrl(img)" alt="Product Image" style="width: 50px; height: 50px; object-fit: cover; margin-right: 5px; border-radius: 4px; border: 1px solid #ccc;" />
           </ng-container>
         </td>
         <td>

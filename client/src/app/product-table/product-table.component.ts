@@ -56,4 +56,9 @@ export class ProductTableComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['/login']);
   }
+
+  getImageUrl(img: string): string {
+    const base = environment.apiUrl.endsWith('/') ? environment.apiUrl.slice(0, -1) : environment.apiUrl;
+    return img.startsWith('http') ? img : base + img;
+  }
 }
