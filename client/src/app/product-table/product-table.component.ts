@@ -26,7 +26,7 @@ export class ProductTableComponent implements OnInit {
   }
 
   fetchProducts(): void {
-    this.http.get<Product[]>('http://localhost:3000/api/products')
+    this.http.get<Product[]>(environment.apiUrl + 'api/products')
       .subscribe({
         next: (data) => this.products = data,
         error: (err) => console.error('Failed to load products:', err)
@@ -50,5 +50,10 @@ export class ProductTableComponent implements OnInit {
         },
         error: (err) => console.error('Failed to delete product:', err)
       });
+  }
+
+  signOut(): void {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 }
