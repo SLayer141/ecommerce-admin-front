@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 interface Product {
   id?: number;
@@ -38,10 +39,10 @@ export class ProductFormComponent {
   }
 
   loadProduct(id: string): void {
-    this.http.get<Product>(`http://localhost:3000/api/products/${id}`).subscribe(product => {
+    this.http.get<Product>(environment.apiUrl + 'api/products/' + id).subscribe(product => {
       this.product = product;
       // Always use correct URLs for existing images
-      this.imagePreviews = (product.images || []).map(img => img.startsWith('http') ? img : 'http://localhost:3000' + img);
+      this.imagePreviews = (product.images || []).map(img => img.startsWith('http') ? img : environment.apiUrl.replace(/\/$/, '') + img);
       this.selectedFiles = [];
     });
   }
@@ -51,7 +52,7 @@ export class ProductFormComponent {
     if (input.files && input.files.length) {
       this.selectedFiles = Array.from(input.files);
       // Keep previews for existing images, add new previews for uploads
-      this.imagePreviews = (this.product.images || []).map(img => img.startsWith('http') ? img : 'http://localhost:3000' + img);
+      this.imagePreviews = (this.product.images || []).map(img => img.startsWith('http') ? img : environment.apiUrl.replace(/\/$/, '') + img);
       Array.from(input.files).forEach(file => {
         const reader = new FileReader();
         reader.onload = (e: any) => {
@@ -97,7 +98,7 @@ export class ProductFormComponent {
     });
     if (this.product.id) {
       // Edit mode: PUT
-      this.http.put<Product>(`http://localhost:3000/api/products/${this.product.id}`, formData)
+      this.http.put<Product>(environment.apiUrl + 'api/products/' + this.product.id, formData)
         .subscribe({
           next: (response) => {
             this.successMessage = 'Product updated successfully!';
@@ -112,7 +113,7 @@ export class ProductFormComponent {
         });
     } else {
       // Create mode: POST
-      this.http.post<Product>('http://localhost:3000/api/products', formData)
+      this.http.post<Product>(environment.apiUrl + 'api/products', formData)
         .subscribe({
           next: (response) => {
             this.successMessage = 'Product saved successfully!';
